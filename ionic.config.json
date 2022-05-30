@@ -1,0 +1,7 @@
+{
+  "name": "fairwell-2018",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
