@@ -1,20 +1,45 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Blank </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content
+  [fullscreen]="true"
+  [style.--background]="scanActive?'#00000000':'#ffffff'"
+>
+  <div class="cont" *ngIf="!scanActive">
+   <div>
+    <h1>Welcome</h1>
+    <h2>Fairwell 2018</h2>
+    <ion-button expand="full" (click)="startScanner()" [hidden]="scanActive">
+      Check QR
+    </ion-button>
+   </div>
   </div>
+
+  <ion-modal [isOpen]="scanned" [swipeToClose]="true">
+    <ng-template>
+       <div class="view">
+          <div class="loading" *ngIf="loading">checking please wait........</div>
+          <div *ngIf="!loading">
+            <h1 *ngIf="data.status=='in'" style="color: red;">Already Checked In.</h1>
+            <h1 *ngIf="data.status==''" style="color: green;">Welcome</h1>
+            <p>
+              {{data.name}}
+              from {{data.branch}}-{{data.batch}}
+              <br>
+            </p>
+          </div>
+        </div>
+    </ng-template>
+  </ion-modal>
+
+  
+  <ion-row class="scan-button" [hidden]="!scanActive">
+    <ion-col class="ion-no-padding">
+      <ion-button expand="full" (click)="stopScanner()">Stop</ion-button>
+    </ion-col>
+  </ion-row>
+  <div class="scan-box" [hidden]="!scanActive"></div>
 </ion-content>
